@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Frontier Atlas — RedM Collector Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Frontier Atlas — Collector's Field Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Rye&display=swap" rel="stylesheet">
@@ -12,9 +12,16 @@
 </head>
 <body>
   <header class="topbar">
-    <button id="menu-btn" class="menu-btn" aria-label="Open categories" aria-expanded="false">☰</button>
-    <h1 class="brand">Frontier Atlas</h1>
-    <p class="tagline">Collector Job map for our server</p>
+    <button id="menu-btn" class="icon-btn menu-btn" aria-label="Open categories" aria-expanded="false">☰</button>
+    <div class="title">
+      <h1 class="brand">Frontier Atlas</h1>
+      <p class="subtitle">Collector's Field Guide</p>
+    </div>
+    <div class="search">
+      <input id="search" type="search" placeholder="Search name, category, location…" autocomplete="off" aria-label="Search collectibles">
+      <ul id="results" class="results" hidden></ul>
+    </div>
+    <button id="admin-toggle" class="btn ghost" aria-pressed="false">Admin</button>
   </header>
 
   <div class="layout">
@@ -24,18 +31,49 @@
         <ul id="category-list" class="category-list"></ul>
       </section>
       <section>
-        <h2>Collection progress</h2>
-        <div class="overall">
-          <div class="bar"><span id="overall-bar"></span></div>
-          <p id="overall-text">0 of 0 collected</p>
-        </div>
+        <h2>Progress</h2>
+        <div class="bar"><span id="overall-bar"></span></div>
+        <dl class="stats">
+          <dt>Collected</dt><dd id="stat-done">0</dd>
+          <dt>Remaining</dt><dd id="stat-left">0</dd>
+          <dt>Total</dt><dd id="stat-total">0</dd>
+        </dl>
       </section>
-      <p id="data-note" class="data-note"></p>
+      <section id="admin-tools" hidden>
+        <h2>Map management</h2>
+        <p class="hint">Edits are saved in this browser only. Export the JSON and upload it to GitHub to publish them.</p>
+        <div class="stack">
+          <button id="add-btn" class="btn">Add collectible</button>
+          <button id="export-btn" class="btn ghost">Export JSON</button>
+          <button id="import-btn" class="btn ghost">Import JSON</button>
+          <button id="reset-btn" class="btn danger">Discard local edits</button>
+        </div>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+      </section>
+      <p id="data-note" class="note" hidden></p>
     </aside>
 
     <main class="map-wrap">
       <div id="map" aria-label="Interactive world map"></div>
-      <div id="map-notice" class="map-notice" hidden></div>
+      <div id="map-notice" class="map-notice" role="status" hidden></div>
+
+      <form id="editor" class="editor" hidden>
+        <h2 id="editor-title">Add collectible</h2>
+        <label>Name <input name="name" required></label>
+        <label>Category <select name="category" required></select></label>
+        <label>Location name <input name="location" required></label>
+        <div class="row">
+          <label>X <input name="x" type="number" min="0" step="1" required></label>
+          <label>Y <input name="y" type="number" min="0" step="1" required></label>
+        </div>
+        <p class="hint">Tip: click the map to fill X and Y.</p>
+        <label>Description <textarea name="description" rows="3"></textarea></label>
+        <label>Image URL (optional) <input name="image" placeholder="assets/screenshots/example.jpg"></label>
+        <div class="row">
+          <button type="submit" class="btn">Save</button>
+          <button type="button" id="editor-cancel" class="btn ghost">Cancel</button>
+        </div>
+      </form>
     </main>
   </div>
 
