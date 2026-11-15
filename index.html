@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frontier Atlas — RedM Collector Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Rye&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="menu-btn" class="menu-btn" aria-label="Open categories" aria-expanded="false">☰</button>
+    <h1 class="brand">Frontier Atlas</h1>
+    <p class="tagline">Collector Job map for our server</p>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar" class="sidebar">
+      <section>
+        <h2>Categories</h2>
+        <ul id="category-list" class="category-list"></ul>
+      </section>
+      <section>
+        <h2>Collection progress</h2>
+        <div class="overall">
+          <div class="bar"><span id="overall-bar"></span></div>
+          <p id="overall-text">0 of 0 collected</p>
+        </div>
+      </section>
+      <p id="data-note" class="data-note"></p>
+    </aside>
+
+    <main class="map-wrap">
+      <div id="map" aria-label="Interactive world map"></div>
+      <div id="map-notice" class="map-notice" hidden></div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
